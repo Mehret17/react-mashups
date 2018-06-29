@@ -4,11 +4,15 @@ import Animals from '../components/Animals/Animals';
 
 
 import './App.css';
+import MashupForm from '../components/MashupForm/MashupForm';
 
 class App extends Component {
   render() {
     return (
-      <Animals />
+      <div>
+        <Animals />
+        <MashupForm />
+      </div>
     );
   }
 }
