@@ -13,23 +13,27 @@ class App extends Component {
   state = {
     animals: [],
   }
-  componentDidMount () {
+  componentDidMount() {
     connection();
     animalRequest.getRequest()
-    .then((animals) => {
-      this.setState ({ animals });
-    })
-    .catch((err) => {
-      console.error('error with mashup GET', err);
-    });
+      .then((animals) => {
+        this.setState({ animals });
+      })
+      .catch((err) => {
+        console.error('error with mashup GET', err);
+      });
   };
 
-  render() {
+  render () {
     return (
-      <div>
-        <Animals 
-         animals={this.state.animals}/>
-        <MashupForm />
+      <div className="App">
+        <div className="col-sm-6">
+          <Animals
+            animals={this.state.animals} />
+        </div>
+        <div className="col-sm-6">
+          <MashupForm />
+        </div>
       </div>
     );
   }
