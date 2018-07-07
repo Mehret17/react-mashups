@@ -13,17 +13,13 @@ class Animals extends React.Component {
     const { animals } = this.props;
     const animalsItem = animals.map((animal) => {
       return (
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-sm-3">
-              <div className="thumbnail">
-                <img className="animal-image" src={animal.imgUrl} alt="animal" />
-                <h3>{animal.name}</h3>
-                <h4>{animal.description}</h4>
+          <div key={animal.id} className="col-sm-3 animalCard">
+            <div className="thumbnail">
+              <img className="animal-image" src={animal.imgUrl} alt="animal" />
+              <h3>{animal.name}</h3>
+              <h4>{animal.description}</h4>
               </div>
-            </div>
           </div>
-        </div>
         // key={animal.id}>{animal.name}</div>
       );
     });

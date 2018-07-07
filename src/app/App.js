@@ -13,6 +13,20 @@ class App extends Component {
   state = {
     animals: [],
   }
+
+  formSubmitEvent = (newAnimal) => {
+    animalRequest.postRequest(newAnimal)
+      .then(() => {
+        animalRequest.getRequest()
+          .then((animals) => {
+            this.setState({ animals });
+          });
+      })
+      .catch((err) => {
+        console.error('error with animal post', err);
+      });
+  };
+
   componentDidMount() {
     connection();
     animalRequest.getRequest()
@@ -24,7 +38,7 @@ class App extends Component {
       });
   };
 
-  render () {
+  render() {
     return (
       <div className="App">
         <div className="col-sm-6">
@@ -32,7 +46,9 @@ class App extends Component {
             animals={this.state.animals} />
         </div>
         <div className="col-sm-6">
-          <MashupForm />
+          <MashupForm
+            onSubmit={this.formSubmitEvent}
+          />
         </div>
       </div>
     );
