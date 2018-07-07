@@ -1,13 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { animalShape } from '../../propz/animalProp';
 
 import './Animals.css';
 
 class Animals extends React.Component {
+  static propTypes = {
+    animals: PropTypes.arrayOf(animalShape),
+  };
   render() {
-    const {animals} = this.props
+    const { animals } = this.props;
     const animalsItem = animals.map((animal) => {
       return (
-        <div key={animal.id}>{animal.name}</div>
+          <div key={animal.id} className="col-sm-3 animalCard">
+            <div className="thumbnail">
+              <img className="animal-image" src={animal.imgUrl} alt="animal" />
+              <h3>{animal.name}</h3>
+              <h4>{animal.description}</h4>
+              </div>
+          </div>
+        // key={animal.id}>{animal.name}</div>
       );
     });
     return (
