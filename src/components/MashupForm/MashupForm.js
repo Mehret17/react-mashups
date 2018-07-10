@@ -2,31 +2,53 @@ import React from 'react';
 
 import './MashupForm.css';
 
+const defaultAnimal = {
+  name: '',
+  imageUrl: '',
+  description: '',
+};
+
 class MashupForm extends React.Component {
   state = {
-    newAnimal: {
-      Name: '',
-      ImageUrl: '',
-      description: '',
-    },
+    newAnimal: defaultAnimal,
   }
+
   formFieldStringState = (name, e) => {
-    const tempListing = {...this.state.newListing};
+    const tempListing = { ...this.state.newListing };
     tempListing[name] = e.target.value;
-    this.setState({newAnimal: tempListing});
+    this.setState({ newAnimal: tempListing });
   }
 
   nameChange = (e) => {
     this.formFieldStringState('name', e);
   }
 
-  formSubmit = (e) => {
-    const {onSubmit} = this.props;
-    e.preventDefault();
-    onSubmit(this.state.newAnimal)
+  imageChange = (e) => {
+    this.formFieldStringState('img', e);
   }
+
+  descriptionChange = (e) => {
+    this.formFieldStringState('description', e);
+  }
+
+  formSubmit = (e) => {
+    const { onSubmit } = this.props;
+    const { newAnimal } = this.state;
+    e.preventDefault();
+    if (
+      newAnimal.name &&
+      newAnimal.imageUrl &&
+      newAnimal.description
+    ) {
+      onSubmit(this.state.newAnimal)
+      this.setState({ newAnimal: defaultAnimal });
+    } else {
+      alert('Please fill in all the form');
+    }
+  }
+
   render() {
-    const {newAnimal} = this.state;
+    const { newAnimal } = this.state;
     return (
       <div className="MashupForm">
         <h2> Mashup Form</h2>
@@ -41,22 +63,25 @@ class MashupForm extends React.Component {
             />
           </fieldset>
           <fieldset className="col-sm-3">
-            <label htmlFor="Name">Image Url: </label>
+            <label htmlFor="imageUrl">Image Url: </label>
             <input className="col-sm-12"
               type="text"
               id="name"
-              // value={newAnimal.ImageUrl}
+              value={newAnimal.ImageUrl}
+              onChange={this.imageChange}
             />
           </fieldset>
           <fieldset className="col-sm-3">
-            <label htmlFor="Name">Description: </label>
+            <label htmlFor="description">Description: </label>
             <input className="col-sm-12"
               type="text"
               id="name"
+              value={newAnimal.description}
+              onChange={this.descriptionChange}
             />
           </fieldset>
           <button className="btn btn-primary col-xs-6 col-xs-offset-3">Submit</button>
-          </form>
+        </form>
       </div>
     )
   }
