@@ -1,22 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './MashupForm.css';
 
 const defaultAnimal = {
   name: '',
-  imageUrl: '',
+  imgUrl: '',
   description: '',
 };
 
 class MashupForm extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  }
+
   state = {
     newAnimal: defaultAnimal,
   }
 
   formFieldStringState = (name, e) => {
-    const tempListing = { ...this.state.newListing };
-    tempListing[name] = e.target.value;
-    this.setState({ newAnimal: tempListing });
+    const tempAnimal = { ...this.state.newAnimal };
+    tempAnimal[name] = e.target.value;
+    this.setState({ newAnimal: tempAnimal });
   }
 
   nameChange = (e) => {
@@ -24,7 +29,7 @@ class MashupForm extends React.Component {
   }
 
   imageChange = (e) => {
-    this.formFieldStringState('img', e);
+    this.formFieldStringState('imgUrl', e);
   }
 
   descriptionChange = (e) => {
@@ -37,7 +42,7 @@ class MashupForm extends React.Component {
     e.preventDefault();
     if (
       newAnimal.name &&
-      newAnimal.imageUrl &&
+      newAnimal.imgUrl &&
       newAnimal.description
     ) {
       onSubmit(this.state.newAnimal)
@@ -48,7 +53,7 @@ class MashupForm extends React.Component {
   }
 
   render() {
-    const { newAnimal } = this.state;
+    const {newAnimal} = this.state;
     return (
       <div className="MashupForm">
         <h2> Mashup Form</h2>
@@ -58,7 +63,7 @@ class MashupForm extends React.Component {
             <input className="col-sm-12"
               type="text"
               id="name"
-              value={newAnimal.Name}
+              value={newAnimal.name}
               onChange={this.nameChange}
             />
           </fieldset>
@@ -66,8 +71,8 @@ class MashupForm extends React.Component {
             <label htmlFor="imageUrl">Image Url: </label>
             <input className="col-sm-12"
               type="text"
-              id="name"
-              value={newAnimal.ImageUrl}
+              id="imgAnimal"
+              value={newAnimal.imgUrl}
               onChange={this.imageChange}
             />
           </fieldset>
@@ -75,7 +80,7 @@ class MashupForm extends React.Component {
             <label htmlFor="description">Description: </label>
             <input className="col-sm-12"
               type="text"
-              id="name"
+              id="description"
               value={newAnimal.description}
               onChange={this.descriptionChange}
             />
