@@ -19,7 +19,7 @@ class App extends Component {
       .then(() => {
         animalRequest.getRequest()
           .then((animals) => {
-            this.setState({ animals });
+            this.setState({animals});
           });
       })
       .catch((err) => {
